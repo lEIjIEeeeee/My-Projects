@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加评论</title>
+    <link rel="stylesheet" href="/js/layui/css/layui.css"/>
+    <link href="/css/header.css" rel="stylesheet">
+    <style>
+        html, body {
+            width: 100%;
+        }
+
+        #warpper {
+            width: 50%;
+            margin: 0 auto;
+            padding-top: 25px;
+        }
+
+        .outer > select {
+            padding: 7px 25px;
+        }
+    </style>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name"
+                   placeholder="搜索商家">
+            <input type="image" name="tijiao" src="/imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<div id="warpper">
+    <h1 style="margin-bottom: 20px;">添加评论</h1>
+    <form class="layui-form" action="/comment/add" method="post" enctype="multipart/form-data">
+        <input name="storeId" th:value="${storeId}" type="hidden"></input>
+        <input name="orderId" th:value="${orderId}" type="hidden"></input>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">评分</label>
+            <div class="layui-input-block">
+                <div id="test"></div>
+                <input name="score" id="socre" value="5" type="hidden"></input>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">详细信息</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test2">图片上传</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/layui/layui.all.js"></script>
+<script>
+    layui.use(['form', 'rate', 'upload'], function () {
+        var form = layui.form;
+        var upload = layui.upload;
+        var rate = layui.rate;
+        //事件监听，表单提交
+        form.on('submit(formDemo)', function (data) {
+            console.log(data.field)
+            return true;
+        });
+        rate.render({
+            elem: '#test'  //绑定元素
+            , value: 5     //级别
+            , text: true   //文本为显示
+            , setText: function (value) {   //自定义文本点击后显示的内容
+                var arrs = {
+                    '1': '极差'
+                    , '2': '差'
+                    , '3': '中等'
+                    , '4': '好'
+                    , '5': '极好'
+                };
+                $("#socre").val(value);
+                this.span.text(arrs[value]);  //显示结果
+            }
+        });
+        //多图片上传
+        upload.render({
+            elem: '#test2'   //绑定元素
+            , url: 'https://httpbin.org/post' //改成您自己的上传接口
+            , multiple: false
+            , auto: false
+            , before: function (obj) {
+            }
+            , done: function (res) {    //传输完成的回调
+                //上传完毕
+            }
+        });
+    });
+</script>
+<script>
+    $("input[name=tijiao]").click(function () {
+        location.href = "/store?name=" + $("input[name=sousuo]").val();
+    })
+</script>
+</body>
+</html>

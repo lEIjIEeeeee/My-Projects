@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.caro2o.mapper.OrderMapper">
+    <resultMap id="result" type="com.accp.caro2o.vo.OrderVo">
+        <id column="id" property="id"></id>
+        <result column="code" property="code"></result>
+        <result column="type" property="type"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="store_user_id" property="storeUserId"></result>
+        <result column="store_id" property="storeId"></result>
+        <result column="price" property="price"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="over_time" property="overTime"></result>
+        <result column="items" property="items"></result>
+        <result column="storeName" property="storeName"></result>
+        <result column="storeUserName" property="storeUserName"></result>
+        <result column="storeUsrePhone" property="storeUsrePhone"></result>
+        <result column="username" property="username"></result>
+        <result column="usrePhone" property="usrePhone"></result>
+    </resultMap>
+
+    <select id="getMyOrder" resultMap="result">
+        select o.*,
+        u.name as 'storeUserName',
+        u.phone as 'storeUsrePhone',
+        (select u.username from user as u1 where u1.id = o.user_id) as 'username',
+        (select u.phone from user as u1 where u1.id = o.user_id) as 'usrePhone',
+        (select s.name from store as s where s.id = o.store_id) as 'storeName',
+        (SELECT GROUP_CONCAT(orders_item.orders_item) FROM orders_item where 8 = oid) as 'items'
+        from orders as o
+        left join user u on o.user_id = u.id
+        <where>
+            <if test="type == 0">
+                and 1=1
+            </if>
+            <if test="type == 1">
+                and o.user_id = #{userId} or o.store_user_id = #{userId}
+            </if>
+            <if test="type == 2">
+                and o.user_id = #{userId}
+            </if>
+        </where>
+    </select>
+    <select id="getListByCode" resultMap="result">
+        select o.*,
+       u.name as 'storeUserName',
+       u.phone as 'storeUsrePhone',
+       (select u.username from user as u1 where u1.id = o.user_id) as 'username',
+       (select u.phone from user as u1 where u1.id = o.user_id) as 'usrePhone',
+       (select s.name from store as s where s.id = o.store_id) as 'storeName',
+       (SELECT GROUP_CONCAT(orders_item.orders_item) FROM orders_item where 8 = oid) as 'items'
+        from orders as o
+        left join user u on o.user_id = u.id
+        where o.code like CONCAT('%',#{name},'%')
+    </select>
+</mapper>

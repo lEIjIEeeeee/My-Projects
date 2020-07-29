@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>店铺新增项</title>
+    <link rel="stylesheet" href="/js/layui/css/layui.css"/>
+    <link href="/css/header.css" rel="stylesheet">
+    <style>
+        html, body {
+            width: 100%;
+        }
+
+        #warpper {
+            width: 95%;
+            margin: 0 auto;
+            padding-top: 25px;
+            display: flex;
+        }
+
+        .outer > select {
+            padding: 7px 25px;
+        }
+
+        #left {
+            width: 50%;
+        }
+
+        #right {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+
+            <input type="image" name="tijiao" src="/imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<div id="warpper">
+    <div id="left">
+        <h1 style="margin-bottom: 20px;">已有店铺项</h1>
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>父级id</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item,start : ${list}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.pid}"></td>
+                <td>
+                    <button class="layui-btn layui-btn-xs" th:data="${start.index}" onclick="edit(this)">编辑</button>
+                    <button class="layui-btn layui-btn-xs"><a
+                            th:href="${'/store/delItem?id=' + item.id + '&storeId=' + item.storeId}"
+                            style="color: white">删除</a></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="right">
+        <h1 style="margin-bottom: 20px;">店铺新增项</h1>
+        <form class="layui-form" action="/store/saveItem" method="post">
+            <input type="hidden" name="storeId" th:value="${id}">
+            <input type="hidden" name="id" value="0">
+            <div class="layui-form-item">
+                <label class="layui-form-label">上级项名称</label>
+                <div class="layui-input-block">
+                    <select name="pid" class="layui-input-inline" lay-search>
+                        <option value="0" selected>顶层</option>
+                        <option th:each="item : ${list}" th:value="${item.id}" th:text="${item.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">项名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">项价格</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" required lay-verify="required" placeholder="请输入价格"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/layui/layui.all.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        var list = [[${list}]];
+
+        function edit(th) {
+            var index = $(th).attr("data");
+            var obj = list[index];
+            $("select[name=pid]").val(obj.pid);
+            $("input[name=name]").val(obj.name);
+            $("input[name=price]").val(obj.price);
+            $("input[name=id]").val(obj.id);
+
+        }
+    </script>
+    <script type="text/javascript">
+        //Demo
+        layui.use(['form'], function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                console.log(data.field)
+                return true;
+            });
+        });
+    </script>
+    <script>
+        $("input[name=tijiao]").click(function () {
+            location.href = "/store?name=" + $("input[name=sousuo]").val();
+        })
+    </script>
+</div>
+</body>
+</html>

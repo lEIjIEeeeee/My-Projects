@@ -1,0 +1,32 @@
+
+footer {
+    width: 1150px;
+    height: 603px;
+    margin: 0px auto;
+}
+
+.fudon:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#footer-div1 div:first-of-type {
+
+    float: left;
+}
+
+.fudon {
+    padding: 30px 0px 50px;
+    border-top: 1px solid #E5E5E5;
+}
+
+#footer-div1 div:last-of-type p:first-of-type {
+    float: right;
+    margin-left: 100px;
+    line-height: 40px;
+}
+
+#footer-div1 div:last-of-type {
+    float: right;
+}

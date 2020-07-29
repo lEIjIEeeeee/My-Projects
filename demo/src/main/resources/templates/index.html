@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/section.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="clear" class="fudon">
+        <nav>
+            <ul th:if="${session.USER != null}" class="diyi">
+                <li class="mt" style="background-color: inherit"><a href="/user">个人中心</a></li>
+                <li class="mt" style="background-color: inherit"><a
+                        href="/user/userInfo">欢迎![[${session.USER.name}]]</a></li>
+                <li class="mt" style="background-color: inherit"><a href="/user/logout">退出</a></li>
+            </ul>
+            <ul th:if="${session.USER == null}" class="diyi">
+                <li class="mt" style="background-color: inherit"><a href="/user/goLogin">登录</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="header-div2" class="fudon" style="padding-bottom: 10px">
+        <div>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+
+            <input type="image" name="tijiao" src="imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<section><!--网页主体部分-->
+    <div class="fudon" style="border: none;position: relative; padding-bottom: 0;">
+        <div class="section-div2">
+            <div class="fudon">
+                <div>
+                    <a> <img src="imges/1.jpg"></a>
+                    <a> <img src="imges/1.2.jpg"></a>
+                    <a><img src="imges/1.3.jpg"></a>
+                    <a><img src="imges/1.4.jpg"></a>
+                </div>
+            </div>
+            <div>
+                <a href="/store">
+                    <span>热门店铺</span>
+                    <div></div>
+                    <img src="imges/3.jpg">
+                </a>
+                <a href="/store?type=2">
+                    <span>最佳人气</span>
+                    <div></div>
+                    <img src="imges/6.jpg">
+                </a>
+                <a style="margin: 0" href="/store?type=0">
+                    <span>最近商铺</span>
+                    <div></div>
+                    <img src="imges/5.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="foot" style="width: 100%; margin: 20px 0;">
+        <div style="width: 80%; margin: 0 auto; text-align: center">
+            <p style="color: #aaaaaa;font-size: 13px"> ©2020 Baidu 使用百度前必读 | 百度wifi翻译机 | 百度翻译开放平台 | 百度大脑 | 翻译协议 | 建议与反馈
+                | 帮助</p>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script>
+    $("input[name=tijiao]").click(function () {
+        location.href = "/store?name=" + $("input[name=sousuo]").val();
+    })
+</script>
+</body>
+</html>

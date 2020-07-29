@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jiudin.css"/>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+            <input type="image" name="tijiao" src="/imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<section>
+    <div class="section-div4">
+        <div class="section-div5">
+            <ul>
+                <li><a th:class="${type == 1 ? 'active-select' : ''}" onclick="options(1)" href="#">热门优先</a></li>
+                <li><a th:class="${type == 2 ? 'active-select' : ''}" onclick="options(2)" href="#">人气优先</a></li>
+                <li><a th:class="${type == 0 ? 'active-select' : ''}" onclick="options(0)" href="#">距离优先</a></li>
+            </ul>
+        </div>
+        <div class="section-div6">
+            <ul style="display: flex" th:each="item : ${list}" class="div-ul1">
+                <li>
+                    <a th:href="${'/store/details?id=' + item.id}"><img
+                            style="width: 200px; height: 100px;position: relative; top: -10px" th:src="${item.picUrl}"
+                            alt=""/></a>
+                </li>
+                <li>
+                    <ul class="div-ul2">
+                        <li><img src="/imges/jiudin8.jpg" alt=""/><a  th:href="${'/store/details?id=' + item.id}" th:text="${item.name}"></a></li>
+                        <li><span>[[${item.province}]] [[${item.city}]] [[${item.district}]] [[${item.address}]]</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="div-ul3">
+                        <li><span th:text="${item.consumptionNum}"></span>+人消费</li>
+                        <li><span th:text="${item.visitNum}"></span>+游览</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="footer" style="text-align: center">
+    <div class="footer-bd">
+        <p>
+            <a href="#">关于恒望</a>
+            <a href="#">合作伙伴</a>
+            <a href="#">联系我们</a>
+            <a href="#">网站地图</a>
+            <em>© 2016-2026 XXXX 版权所有 <a href="http://www.cssmoban.com/" target="_blank" title="版权所有">版权所有</a> -
+                Collect from</em>
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script>
+    function options(type) {
+        location.href = "/store?name=" + $("#name").val() + "&type=" + type
+    }
+</script>
+<script>
+    $("input[name=tijiao]").click(function () {
+        location.href = "/store?name=" + $("input[name=sousuo]").val();
+    })
+</script>
+</body>
+</html>

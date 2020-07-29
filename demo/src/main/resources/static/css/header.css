@@ -1,0 +1,221 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: #F8F8F8;
+}
+
+#clear nav {
+    display: inline-block;
+    float: right;
+
+}
+
+.tou {
+    text-indent: 100px;
+    color: #666666;
+    font-size: 10px;
+    display: inline-block;
+    background: url(../imges/dianwei.jpg) no-repeat 80px;
+
+}
+
+.mt {
+    display: inline;
+    list-style: none;
+    padding: 0px;
+    margin-right: 20px;
+    position: relative;
+    padding: 20px;
+
+}
+
+.mt:after {
+    content: '';
+    clear: both;
+    display: inline-block;
+}
+
+.mt div {
+    position: absolute;
+    right: 0px;
+    width: 1200px;
+    background-color: white;
+    z-index: 1;
+}
+
+.mt div dl {
+    float: left;
+    padding: 0px;
+    text-align: center;
+    margin-top: 40px;
+    display: none;
+}
+
+.mt:hover div dl {
+    display: block;
+}
+
+.mt div dl dt {
+    color: #14D0BF;
+}
+
+.mt div dl dd {
+    display: inline-block;
+    width: 60px;
+    padding: 0px 20px;
+
+}
+
+.mt div dl:last-of-type dd {
+    float: left;
+    padding: 0px 10px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.mt div dl:first-of-type {
+    margin-left: 30px;
+}
+
+.mt div dl:last-of-type {
+    margin-left: 50px;
+}
+
+.mt ul li {
+    list-style: none;
+}
+
+.tou a:first-of-type {
+    background-color: #F4F4F4;
+    color: #8D7389;
+
+}
+
+.tou a:nth-of-type(5) {
+    margin: 30px;
+}
+
+.tou a:nth-of-type(6) {
+    margin-left: -10px;
+}
+
+#clear {
+    padding: 0px;
+    line-height: 40px;
+    border-bottom: none;
+}
+
+.diyi li:first-of-type div {
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+}
+
+.mt:hover {
+    background-color: white;
+}
+
+.diyi li:first-of-type:hover div {
+    background-color: white;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+}
+
+.diyi li:nth-of-type(3) div {
+    width: 140px;
+    position: absolute;
+    right: 0px;
+    background-color: white;
+    text-align: center;
+
+    display: none;
+}
+
+.diyi li:nth-of-type(3):hover div {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: #666666;
+    font-size: 10px;
+}
+
+a:hover {
+    color: #31BBAC;
+}
+
+#header-div2 {
+    background-color: white;
+
+}
+
+#header-div2 div:first-of-type {
+    float: left;
+    margin-left: 50px;
+    margin-top: -10px;
+
+}
+
+#header-div2 div:nth-of-type(2) {
+
+    width: 650px;
+    margin: 0px auto;
+
+}
+
+#header-div2 div:nth-of-type(2) input:first-of-type {
+    font-size: 16px;
+    height: 40px;
+    width: 440px;
+    position: relative;
+    bottom: 17px;
+    left: 6px;
+    border: 1px solid #14D0BF;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#header-div2 div:nth-of-type(2) input:last-of-type {
+    height: 44px;
+    border-radius: 0px 5px 5px 0px;
+
+}
+
+#header-div2 div:nth-of-type(2) p {
+    text-indent: 1em;
+    position: relative;
+    bottom: 15px;
+}
+
+#header-div2 div:last-of-type a {
+    display: inline-block;
+    text-decoration: none;
+    float: right;
+    margin-right: 40px;
+    margin-top: -80px;
+}
+
+#header-div2 div:last-of-type a:hover {
+    color: #8D7389;
+}
+
+#header-div2 div:last-of-type a ul li {
+    width: 40px;
+    list-style: none;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+#header-div2 div:last-of-type a ul li:nth-of-type(2) {
+    width: 60px;
+}
+
+#header-div2 div:last-of-type a ul li:nth-of-type(2) img {
+    padding-left: 15px;
+    padding-right: 10px;
+}

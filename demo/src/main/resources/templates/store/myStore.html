@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的店铺</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jiudin.css"/>
+    <link rel="stylesheet" href="/js/layui/css/layui.css"/>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .layui-form > .layui-form-item {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+            <input type="image" name="tijiao" src="/imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<section>
+    <form class="layui-form" action="/store/myStore" method="get" style="padding-top: 10px;display: flex">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-inline"><!--lay-verify="required"-->
+                <input type="text" name="name" placeholder="请输入店铺名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button type="submit" class="layui-btn layui-btn-normal">查询</button>
+        </div>
+        <div class="layui-form-item">
+            <button type="button" class="layui-btn layui-btn-normal"><a style="color: white" href="/store/gotoStoreAdd">添加</a>
+            </button>
+        </div>
+    </form>
+    <hr style="margin: 10px 0"/>
+    <div class="section-div4">
+        <div class="section-div6" th:each="item : ${list}">
+            <ul class="div-ul1">
+                <li><img style="width: 200px; height: 100px;position: relative; top: -10px" th:src="${item.picUrl}"
+                         alt=""/></li>
+                <li>
+                    <ul class="div-ul2">
+                        <li><img src="/imges/jiudin8.jpg" alt=""/><a href="#" th:text="${item.name}"></a></li>
+                        <li><span>[[${item.province}]] [[${item.city}]] [[${item.district}]] [[${item.address}]]</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="div-ul3">
+                        <li><span th:text="${item.consumptionNum}"></span>+人消费</li>
+                        <li><span th:text="${item.visitNum}"></span>+游览</li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="div-ul4">
+                        <li><a th:href="${'/store/storeEdit?id=' + item.id}">
+                            <button class="layui-btn layui-btn-xs">编辑</button>
+                        </a></li>
+                        <li><a th:href="${'/store/gotoStoreItemAdd?id=' + item.id}">
+                            <button class="layui-btn layui-btn-xs">编辑店铺项</button>
+                        </a></li>
+                        <li><a th:href="${'/store/del?id=' + item.id}">
+                            <button class="layui-btn layui-btn-xs">删除</button>
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<div class="section-div7">
+        <ul>
+            <li><img src="/imges/jiudin9.jpg" style="position: relative; top: 3px;transform: rotateY(180deg)" alt=""/>
+            </li>
+            <li class="active">1</li>
+            <li>2</li>
+            <li>...</li>
+            <li>13</li>
+            <li><img src="/imges/jiudin9.jpg" style="position: relative; top: 3px;" alt=""/></li>
+        </ul>
+    </div>-->
+</section>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script>
+    $("input[name=tijiao]").click(function () {
+        location.href = "/store?name=" + $("input[name=sousuo]").val();
+    })
+</script>
+</body>
+</html>

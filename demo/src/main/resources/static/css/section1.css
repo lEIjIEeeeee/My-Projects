@@ -1,0 +1,168 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+section {
+    width: 1195px;
+    margin: 0px auto;
+
+}
+
+section div p {
+    background-color: #F8F8F8;
+    line-height: 60px;
+}
+
+section div p a {
+    color: #000;
+}
+
+section div p a:hover {
+    color: #000;
+}
+
+section div div:first-of-type img {
+    vertical-align: middle;
+}
+
+.section-div1 {
+    width: 950px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.section-div1:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.section-div2 div:first-of-type samp {
+    font-size: 15px;
+    margin: 5px 20px;
+}
+
+.section-div2 div:first-of-type img {
+    margin-right: 20px;
+}
+
+.section-div2 div:first-of-type {
+    padding: 10px 0px;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.section-div3:after {
+    content: '';
+    clear: both;
+    display: inline-block;
+}
+
+.section-div3 {
+    width: 150px;
+    float: left;
+    margin-bottom: 80px;
+}
+
+.section-div3 samp {
+    font-size: 17px;
+    position: relative;
+    top: 10px;
+}
+
+.section-div3 samp:first-of-type {
+    margin: 0px 10px;
+}
+
+.section-div3 samp:last-of-type {
+    float: right;
+    color: #757575;
+}
+
+.section-div4 {
+    display: inline-block;
+    float: right;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.section-div4 ul li {
+    list-style: none;
+    line-height: 30px;
+    width: 100px;
+}
+
+.section-div4 ul li a {
+    font-size: 15px;
+}
+
+.section-div4 ul {
+    float: left;
+    margin: 0px 10px;
+}
+
+.section-div1 div:last-of-type {
+    border-bottom: none;
+}
+
+.f1 {
+    float: left;
+    position: absolute;
+}
+
+.f1 + div {
+
+    width: 520px;
+}
+
+.f1 + div ul li samp {
+    margin-right: 20px;
+    color: #FF6600;
+}
+
+.f1 + div ul samp:last-of-type {
+    color: #999999;
+}
+
+.f1 + div ul li img {
+    vertical-align: middle;
+}
+
+.f1 + div ul li {
+    list-style: none;
+    margin: 5px 0px 5px 240px;
+}
+
+.f1 + div ul:first-of-type samp:first-of-type a {
+    margin: 0px 8px;
+    color: #000;
+}
+
+.f1 + div ul:first-of-type h2 {
+    font-size: 20px;
+}
+
+.f1 + div ul:first-of-type samp:last-of-type {
+    color: #FF6600;
+}
+
+.f1 + div ul:first-of-type {
+    border-bottom: 1px dashed #E5E5E5;
+}
+
+.f2 {
+    padding: 15px 0px;
+}
+
+.f2 a {
+    font-size: 15px;
+    margin: 0px 20px;
+}
+
+.f1 + div ul samp:first-of-type {
+    font-size: 17px;
+    color: #FF6600;
+}
+
+.f3 {
+    margin-bottom: 30px;
+}

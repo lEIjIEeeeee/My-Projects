@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <link href="/js/layui/css/layui.css" rel="stylesheet">
+    <link href="/js/layer/skin/layer.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/jquery.baiduMap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: "微软雅黑";
+            width: 100%;
+        }
+
+        #warpper {
+            width: 95%;
+            margin: auto;
+            padding-top: 15px;
+        }
+
+        #details {
+            width: 100%;
+            display: flex;
+        }
+
+        #left {
+            width: 60%;
+            height: 450px;
+            border: 4px solid #03A9F4;
+            padding: 2px;
+        }
+
+        #container2 {
+            width: 100%;
+            height: 100%;
+        }
+
+        #right {
+            width: 38%;
+            margin: 0 auto;
+        }
+
+        #right > div {
+            margin-bottom: 10px;
+        }
+
+        .commentItems {
+            display: flex;
+        }
+
+        p {
+            text-indent: 2em;
+            font-size: 12px;
+        }
+
+        #options {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .items {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .item {
+            padding: 5px 8px;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+
+        .itemsActive {
+            background: deepskyblue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+            <input type="image" name="tijiao" src="/imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<div id="warpper">
+    <div id="details">
+        <div id="left">
+            <div id="container2" class="container"></div>
+        </div>
+        <div id="right">
+            <h2 style="text-align: center;margin-bottom: 20px" th:text="${store.name}"></h2>
+            <div style="display: flex">
+                <div style="width: 15%;">店长:</div>
+                <div style=" width: 90%" th:text="${store.username}"></div>
+            </div>
+            <div style="display: flex">
+                <div style="width: 15%;">电话:</div>
+                <div style=" width: 90%" th:text="${store.phone}"></div>
+            </div>
+            <div style="display: flex">
+                <div style="width: 15%;">访问人数:</div>
+                <div style=" width: 90%" th:text="${store.visitNum}"></div>
+            </div>
+            <div style="display: flex">
+                <div style="width: 15%;">消费人数:</div>
+                <div style=" width: 90%" th:text="${store.consumptionNum}"></div>
+            </div>
+            <div style="display: flex">
+                <div style="width: 15%;">简介:</div>
+                <div style="font-size: 13px; width: 90%">
+                    [[${store.remark}]]
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="margin: 15px 0;"/>
+    <div id="options">
+        <div style="display: flex;position: relative; margin-bottom: 10px">
+            <div>
+                <button id="btn" class="layui-btn layui-btn-normal">确定订单</button>
+            </div>
+            <div style="position: absolute; right: 10px">总金额: ￥<span id="price" style="color: red">0</span></div>
+        </div>
+        <div id="projectItem">       <!--商品项目树形结构容器-->
+        </div>
+    </div>
+    <hr style="margin: 15px 0;"/>
+    <div id="imgAndComment">
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">评论</li>
+                <li>店铺介绍</li>
+            </ul>
+            <div class="layui-tab-content" style="min-height: 300px; background: white;">
+                <div class="layui-tab-item layui-show">
+                    <ul>
+                        <li th:each="item : ${CommentList}" class="commentItems"
+                            style="border-bottom: 1px solid deepskyblue; padding: 10px 0;">
+                            <div style="width: 10%">
+                                <img style="width: 30px; height: 30px; border-radius: 50%; margin: auto;display: block;"
+                                     th:src="${item.userPic}"/>
+                            </div>
+                            <div style="width: 75%; display: flex">
+                                <img style="height: 60px; width: 60px" th:src="${item.images}">
+                                <p th:text="${item.text}"></p>
+                            </div>
+                            <div style="width: 15%; text-align: center">
+                                <div th:id="${'score' + item.id}" class="score" th:data="${item.score}"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="layui-tab-item">
+                    <img th:each="item : ${imgList}" style="width: 100%" th:src="${item}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=QUSzk8g7c6Z10cAmLmfjgG1NB7aaBiyo
+"></script>
+<script type="text/javascript" src="/js/layui/layui.all.js"></script>
+<script type="text/javascript">
+    $(".item").click(function () {
+        $(this).parent().find(".itemsActive").removeClass("itemsActive")
+        $(this).addClass("itemsActive");
+    })
+</script>
+<script>
+    $("input[name=tijiao]").click(function () {
+        location.href = "/store?name=" + $("input[name=sousuo]").val();
+    })
+</script>
+<script type="text/javascript" th:inline="javascript">
+    var storeId = [[${store.id}]];
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use(['element', 'rate', 'tree', 'layer'], function () {
+        var element = layui.element;
+        var rate = layui.rate;
+        var layer = layui.layer;
+
+        var tree = layui.tree;
+
+        load()
+        //渲染
+        var dataList = [];
+
+        function load() {
+            $.ajax({
+                url: "/store/getTree",    //请求的url地址
+                data: {
+                    "storeId": storeId    //参数值
+                },
+                type: "get",             //请求方式
+                dataType: "json",        //数据返回格式
+                success: function (res) {     //请求成功时的处理
+                    dataList = res;
+                    console.log(res)       //输出结果
+                    var data = getTreeData(res, [], 0);
+                    tree.render({
+                        elem: '#projectItem'  //绑定元素
+                        , showCheckbox: true
+                        , data: data
+                        , id: "demo1"
+                        , oncheck: function (obj) {        //点击勾选节点，金额变化
+                            var checkData = tree.getChecked('demo1');
+                            var price = getPrice(0, checkData);
+                            $("#price").text(price);
+                        }
+                    });
+                }
+            })
+        }
+
+        function getPrice(price, arr) {
+            if (arr.length == 0) {
+                return price;
+            }
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < dataList.length; j++) {
+                    if (dataList[j].id == arr[i].id) {
+                        price += parseInt(dataList[j].price)
+                        break;
+                    }
+                }
+                price = getPrice(price, arr[i].children)
+            }
+            return price;
+        }
+
+        function getIds(price, arr) {
+            if (arr.length == 0) {
+                return price;
+            }
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < dataList.length; j++) {
+                    if (dataList[j].id == arr[i].id) {
+                        price += dataList[j].id + ","
+                        break;
+                    }
+                }
+                price = getIds(price, arr[i].children)
+            }
+            return price;
+        }
+
+        $("#btn").click(function () {
+            var checkData = tree.getChecked('demo1');
+            var ids = getIds("", checkData);
+            if (!ids) {
+                layer.msg("请选择item项")
+                return;
+            }
+            location.href = "/order/toAddOrder?ids=" + ids;
+        })
+
+        setTimeout(function () {
+            loadScore();
+        }, 100)
+
+        function loadScore() {
+            let scores = $(".score");
+            console.log(scores)
+            for (let i = 0; i < scores.length; i++) {
+                let id = "#"  +$(scores[i]).attr("id");
+                let score = $(scores[i]).attr("data");
+                rate.render({
+                    elem: id
+                    , value: score
+                    ,readonly: true
+                });
+            }
+        }
+    });
+
+
+    function getTreeData(list, arr, id) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].pid == id) {
+                var obj = {
+                    id: list[i].id,
+                    title: list[i].name + "(" + list[i].price + ")",
+                    children: []
+                }
+                obj.children = getTreeData(list, obj.children, list[i].id)
+                arr.push(obj);
+            }
+        }
+        return arr;
+    }
+
+</script>
+<script type="text/javascript" th:inline="javascript">
+    var address = [[${store.province}]] + " " + [[${store.city}]] + " " + [[${store.district}]];
+    new BaiduMap({
+        id: "container2",
+        title: {
+            text: [[${store.address}]],
+            className: "title"
+        },
+        content: {
+            className: "content",
+            text: ["地址：" + address]
+        },
+        point: {
+            lng: [[${store.longitude}]],
+            lat: [[${store.latitude}]]
+        },
+        level: 15,               //地图级别，默认15
+        zoom: true,              //启用滚轮缩放功能
+        type: ["地图", "卫星", "三维"],  //显示地图类型
+        width: 320,
+        height: 70,
+        icon: {
+            url: "/img/icon.png",    //坐标标记
+            width: 36,
+            height: 36
+        }
+    });
+</script>
+</body>
+</html>

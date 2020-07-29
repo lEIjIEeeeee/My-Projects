@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>个人中心</title>
+
+    <link href="css/admin.css" rel="stylesheet" type="text/css">
+    <link href="css/personal.css" rel="stylesheet" type="text/css">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/systyle.css" rel="stylesheet" type="text/css">
+    <link href="js/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <style>
+        .order-top {
+            width: 100%;
+            padding: 10px 0;
+            display: none;
+        }
+
+        .order-top > div {
+            display: flex;
+            line-height: 36px;
+            width: 100%;
+            border-bottom: 1px solid #aaa
+        }
+
+        .order-top > div > div {
+            width: 100%;
+            text-align: center;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<header> <!--网页头部-->
+    <div id="header-div2" class="fudon" style="padding: 10px 0">
+        <div>
+            <a href="/"><img style="width: 150px; height: 50px; margin-top: 10px" src="/img/logobig.png"></a>
+        </div>
+        <div>
+            <input type="text" style="text-indent: 1em" name="sousuo" id="name" th:value="${name}"
+                   placeholder="搜索商家">
+
+            <input type="image" name="tijiao" src="imges/dianwei5.jpg">
+        </div>
+    </div>
+</header>
+<!--头 -->
+<div class="center">
+    <div class="col-main">
+        <div class="main-wrap" style="margin: 0">
+            <div class="wrap-left">
+                <div>
+                    <div class="m-user">
+                        <!--个人信息 -->
+                        <div class="m-bg"></div>
+                        <div class="m-userinfo">
+                            <div class="m-baseinfo">
+                                <a>
+                                    <img th:src="${session.USER.picUrl}">
+                                </a>
+                                <div class="s-prestige am-btn am-round">
+                                    昵称：[[${session.USER.name}]]
+                                </div>
+                                <div class="s-prestige am-btn am-round">
+                                    用户名：[[${session.USER.username}]]
+                                </div>
+                                <div class="s-prestige am-btn am-round">
+                                    地址: [[${session.USER.province}]] [[${session.USER.city}]]
+                                    [[${session.USER.district}]] [[${session.USER.address}]]
+                                </div>
+                            </div>
+                            <div class="m-right">
+                                <div class="m-new">
+                                </div>
+                                <div class="m-new">
+                                    <a href="user/userInfo"><i class="am-icon-bell-o"></i>个人资料</a>
+                                </div>
+                                <div th:if="${session.USER.type == 1 || session.USER.type == 0}" class="m-new">
+                                    <a href="store/myStore"><i class="am-icon-bell-o"></i>我的店铺</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-container-bottom"></div>
+
+                    <!--订单 -->
+                    <div class="m-order" style="min-height: 500px">
+                        <div class="s-bar">
+                            <i class="s-icon"></i>我的订单
+                        </div>
+                        <div>
+                            <ul class="am-nav-tabs" style="line-height: 35px">
+                                <li onclick="active(this)">所有订单</li>
+                                <li class="am-active"  onclick="active(this)">待付款</li>
+                                <li onclick="active(this)">处理中</li>
+                                <li onclick="active(this)">已完成</li>
+                                <li onclick="active(this)">已完结</li>
+                                <li onclick="active(this)">已取消</li>
+                            </ul>
+                            <h2> &nbsp; </h2>
+                            <div class="order-top ">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-top active">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}" th:if="${item.type == 0}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                        <button class="layui-btn layui-btn-sm"><a th:href="${'/order/updateStatus?id=' + item.id + '&type=1'}">确认付款</a></button>
+                                        <button class="layui-btn layui-btn-sm"><a th:href="${'/order/updateStatus?id=' + item.id + '&type=4'}">取消订单</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-top">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}" th:if="${item.type == 1}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                        <button class="layui-btn layui-btn-sm"><a th:href="${'/order/updateStatus?id=' + item.id + '&type=2'}">已完成</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-top">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}" th:if="${item.type == 2}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                        <button th:if="${session.USER.id == item.userId}" class="layui-btn layui-btn-sm"><a th:href="${'/comment/gotoAdd?orderId=' + item.id + '&storeId=' + item.storeId}">去评论</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-top">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}" th:if="${item.type == 3}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-top">
+                                <div>
+                                    <div>
+                                        店铺名称
+                                    </div>
+                                    <div>
+                                        店长名称
+                                    </div>
+                                    <div>
+                                        店长电话
+                                    </div>
+                                    <div>
+                                        用户名称
+                                    </div>
+                                    <div>
+                                        用户电话
+                                    </div>
+                                    <div>
+                                        选择项
+                                    </div>
+                                    <div>
+                                        价格
+                                    </div>
+                                    <div>
+                                        操作
+                                    </div>
+                                </div>
+                                <div th:each="item : ${list}" th:if="${item.type == 4}">
+                                    <div>
+                                        [[${item.storeName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUserName}]]
+                                    </div>
+                                    <div>
+                                        [[${item.storeUsrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.username}]]
+                                    </div>
+                                    <div>
+                                        [[${item.usrePhone}]]
+                                    </div>
+                                    <div>
+                                        [[${item.items}]]
+                                    </div>
+                                    <div>
+                                        [[${item.price}]]
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <div class="footer-bd">
+                <p>
+                    <a href="#">关于恒望</a>
+                    <a href="#">合作伙伴</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">网站地图</a>
+                    <em>© 2016-2026 XXXX 版权所有 <a href="http://www.cssmoban.com/" target="_blank" title="版权所有">版权所有</a> -
+                        Collect from</em>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script>
+        function active(th) {
+            $(th).parent().find("li").removeClass("am-active");
+            var idnex = $(th).parent().find("li").index(th);
+            $(th).addClass("am-active")
+            $(".order-top").removeClass("active");
+            $(".order-top:eq(" + idnex + ")").addClass("active");
+        }
+    </script>
+    <script>
+        $("input[name=tijiao]").click(function () {
+            location.href = "/store?name=" + $("input[name=sousuo]").val();
+        })
+    </script>
+</div>
+</body>
+
+</html>
